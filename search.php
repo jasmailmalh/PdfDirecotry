@@ -76,7 +76,7 @@ if (is_dir($dir)) {
     </form>
 
     <div class="pdf-list">
-        <h3>📂 GurmatParkash <?php echo "$month $year"; ?></h3>
+        <h3>📂 Gurmat Parkash <?php echo "$month $year"; ?></h3>
       
 
         <?php

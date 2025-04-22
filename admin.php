@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
         <label>Select Year:</label>
         <select name="year" required>
             <?php for ($y = date("Y"); $y >= 2020; $y--) echo "<option value='$y'>$y</option>"; ?>
-        </select>
+        </select><br>
 
         <label>Select Month:</label>
         <select name="month" required>
