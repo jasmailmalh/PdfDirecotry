@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel - Upload PDFs</title>
+    <title>Admin Panel - Upload Gurmat Parkash PDFs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
-    <h2>📤 Admin Panel - Upload PDF</h2>
+    <h2>📤 Admin Panel - Upload   Gurmat Parkash PDF</h2>
     <?php if (isset($message)) echo "<p>$message</p>"; ?>
     <form method="post" enctype="multipart/form-data">
         <label>Select Year:</label>
