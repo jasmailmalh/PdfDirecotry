@@ -1,7 +1,7 @@
 <?php
 $year = $_GET['year'] ?? '';
 $month = $_GET['month'] ?? '';
-$dir = "uploads/$year/$month/";
+$dir = "gpuploads/$year/$month/";
 
 $pdfs = [];
 if (is_dir($dir)) {
@@ -21,7 +21,7 @@ if (is_dir($dir)) {
     <script>
         function fetchMonths(year) {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "get_months.php?year=" + year, true);
+            xhr.open("GET", "gpget_months.php?year=" + year, true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     document.getElementById("monthSelect").innerHTML = "<option value=''>Select Month</option>" + xhr.responseText;
@@ -58,7 +58,7 @@ if (is_dir($dir)) {
         <select name="year" id="yearSelect" required>
             <option value="">Select Year</option>
             <?php
-            $years = array_filter(glob('uploads/*'), 'is_dir');
+            $years = array_filter(glob('gpuploads/*'), 'is_dir');
             foreach ($years as $y) {
                 $yName = basename($y);
                 $selected = ($yName === $year) ? "selected" : "";
@@ -101,7 +101,7 @@ if (is_dir($dir)) {
 <script>
     function fetchMonths(year, selectedMonth = "") {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "get_months.php?year=" + year, true);
+        xhr.open("GET", "gpget_months.php?year=" + year, true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 const monthSelect = document.getElementById("monthSelect");
@@ -139,12 +139,12 @@ if (is_dir($dir)) {
         <?php endif; ?>
 
         span.onclick = function () {
-            window.location.href = "search.php";
+            window.location.href = "gpsearch.php";
         }
 
         window.onclick = function (event) {
             if (event.target === modal) {
-                window.location.href = "search.php";
+                window.location.href = "gpsearch.php";
             }
         }
     };

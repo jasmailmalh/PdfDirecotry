@@ -1,5 +1,5 @@
 <?php
-$uploadDir = "uploads/";
+$uploadDir = "gpuploads/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
     $year = $_POST['year'];
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
     </form>
 
     <br>
-    <a href="search.php">🔍 Go to User Search Page</a>
+    <a href="gpsearch.php">🔍 Go to User Search Page</a>
 </div>
 </body>
 </html>
