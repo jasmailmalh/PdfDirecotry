@@ -1,5 +1,5 @@
 <?php
-$uploadDir = "gpuploads/";
+$uploadDir = "gguploads/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
     $year = $_POST['year'];
@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel - Upload Gurmat Parkash PDFs</title>
+    <title>Admin Panel - Upload Gurmat Gyan PDFs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
-    <h2>📤 Admin Panel - Upload   Gurmat Parkash PDF</h2>
+    <h2>📤 Admin Panel - Upload   Gurmat Gyan PDF</h2>
     <?php if (isset($message)) echo "<p>$message</p>"; ?>
     <form method="post" enctype="multipart/form-data">
         <label>Select Year:</label>
