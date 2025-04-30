@@ -1,100 +1,89 @@
-<?php
-$uploadDir = "uploads/";
-
-function getLatestPDFs($dir) {
-    $pdfs = [];
-    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
-
-    foreach ($iterator as $file) {
-        if ($file->isFile() && strtolower($file->getExtension()) === "pdf") {
-            $pdfs[$file->getMTime()] = $file->getPathname();
-        }
-    }
-
-    krsort($pdfs);
-    return array_slice($pdfs, 0, 5, true);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdf"])) {
-    $month = date("F"); // Full month name e.g. January
-    $year = date("Y");
-    $targetDir = "$uploadDir$year/$month/";
-
-    if (!file_exists($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
-
-    $fileName = basename($_FILES["pdf"]["name"]);
-    $targetFile = $targetDir . $fileName;
-
-    if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $targetFile)) {
-        $message = "✅ PDF uploaded to <strong>$year/$month</strong>";
-    } else {
-        $message = "❌ Error uploading PDF.";
-    }
-}
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upload PDF Monthly</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gurdwara Downloads</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 20px;
+    }
+
+    .container {
+      display: flex;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 40px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .logo-section {
+      flex: 1;
+      text-align: center;
+      border-right: 1px solid #e0e0e0;
+      padding-right: 40px;
+    }
+
+    .logo-section img {
+      max-width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .logo-section h2 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .links-section {
+      flex: 2;
+      padding-left: 40px;
+    }
+
+    .links-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .links-section a {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      text-decoration: none;
+      color: #007BFF;
+      transition: color 0.2s ease;
+    }
+
+    .links-section a:hover {
+      color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h2>📤 Upload PDF</h2>
-    <?php if (isset($message)) echo "<p>$message</p>"; ?>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf" accept="application/pdf" required>
-        <input type="submit" value="Upload PDF">
-    </form>
 
-    <h2>🔍 Search PDFs</h2>
-    <form action="search.php" method="get">
-        <select name="year" id="yearSelect" required>
-            <option value="">Select Year</option>
-            <?php
-            $years = array_filter(glob($uploadDir . '*'), 'is_dir');
-            foreach ($years as $yearPath) {
-                $y = basename($yearPath);
-                echo "<option value='$y'>$y</option>";
-            }
-            ?>
-        </select>
-
-        <select name="month" id="monthSelect" required>
-            <option value="">Select Month</option>
-        </select>
-
-        <input type="submit" value="Search">
-    </form>
-
-    <h2>🆕 Latest PDFs</h2>
-    <div class="pdf-list">
-        <?php
-        $latestPDFs = getLatestPDFs($uploadDir);
-        foreach ($latestPDFs as $path) {
-            echo "<a href='$path' target='_blank'>" . basename($path) . "</a>";
-        }
-        ?>
+  <div class="container">
+    <div class="logo-section">
+      <img src="img/sgpclogo.jpg" alt="Gurdwara Logo">
+      <h2>SGPC Amritsar</h2>
     </div>
-</div>
 
-<script>
-document.getElementById("yearSelect").addEventListener("change", function () {
-    const year = this.value;
-    const monthSelect = document.getElementById("monthSelect");
+    <div class="links-section">
+      <h3>Downloadable Files:</h3>
+      <a href="gpsearch.php">1) Download Gurmat Parkash</a>
+      <a href="ggsearch.php">2) Download Gurmat Gyan</a>
+      <a href="gazettesearch.php">3) Download Gurdwara Gazette</a>
+    </div>
+  </div>
 
-    fetch(`get_months.php?year=${year}`)
-        .then(response => response.json())
-        .then(data => {
-            monthSelect.innerHTML = '<option value="">Select Month</option>';
-            data.forEach(month => {
-                monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
-            });
-        });
-});
-</script>
 </body>
 </html>

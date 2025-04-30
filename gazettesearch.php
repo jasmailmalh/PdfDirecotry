@@ -52,13 +52,30 @@ if (is_dir($dir)) {
     </script>
 </head>
 <body>
+
 <div class="container">
-    <h2>🔍 Search  Gurdwara Gazette PDFs</h2>
+    <!-- Home Button -->
+    <div style="text-align: right; margin-bottom: 20px;">
+        <a href="index.php" style="
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
+            🏠 Home
+        </a>
+    </div>
+
+    <h2>🔍 Search Gurdwara Gazette PDFs</h2>
+
     <form method="get">
         <select name="year" id="yearSelect" required>
             <option value="">Select Year</option>
             <?php
-            $years = array_filter(glob('gpuploads/*'), 'is_dir');
+            $years = array_filter(glob('gazetteuploads/*'), 'is_dir');
             foreach ($years as $y) {
                 $yName = basename($y);
                 $selected = ($yName === $year) ? "selected" : "";
@@ -72,12 +89,16 @@ if (is_dir($dir)) {
             <!-- Months will be loaded dynamically -->
         </select>
 
-        <input class ="mt-4"type="submit"  style="margin-top: 20px; display: block; margin-left: auto; margin-right: auto;" value="Search">
+        <input class="mt-4" type="submit" style="
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        " value="Search">
     </form>
 
     <div class="pdf-list">
-        <h3>📂  Gurdwara Gazette <?php echo "$month $year"; ?></h3>
-      
+        <h3>📂 Gurdwara Gazette <?php echo "$month $year"; ?></h3>
 
         <?php
         if ($pdfs) {
@@ -86,9 +107,12 @@ if (is_dir($dir)) {
             }
         }
         ?>
-
     </div>
 </div>
+
+
+
+
 
 <!-- Modal -->
 <div id="noPdfModal" class="modal">
@@ -101,7 +125,7 @@ if (is_dir($dir)) {
 <script>
     function fetchMonths(year, selectedMonth = "") {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "gpget_months.php?year=" + year, true);
+        xhr.open("GET", "gazetteget_months.php?year=" + year, true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 const monthSelect = document.getElementById("monthSelect");

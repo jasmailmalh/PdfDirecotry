@@ -53,6 +53,20 @@ if (is_dir($dir)) {
 </head>
 <body>
 <div class="container">
+
+<div style="text-align: right; margin-bottom: 20px;">
+        <a href="index.php" style="
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
+            🏠 Home
+        </a>
+    </div>
     <h2>🔍 Search Gurmat Parkash PDFs</h2>
     <form method="get">
         <select name="year" id="yearSelect" required>
@@ -149,10 +163,6 @@ if (is_dir($dir)) {
         }
     };
 </script>
-
-
-
-
 
 </body>
 </html>
