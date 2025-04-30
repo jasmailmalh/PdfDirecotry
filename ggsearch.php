@@ -53,7 +53,7 @@ if (is_dir($dir)) {
 </head>
 <body>
 <div class="container">
-<div style="text-align: right; margin-bottom: 20px;">
+   <div style="text-align: right; margin-bottom: 20px;">
         <a href="index.php" style="
             text-decoration: none;
             background-color: #007BFF;
@@ -95,7 +95,8 @@ if (is_dir($dir)) {
         <?php
         if ($pdfs) {
             foreach ($pdfs as $pdf) {
-                echo "<p><a href='$pdf' download>📥 Click here to Download " . basename($pdf) . "</a></p>";
+              echo "<p><a href='$pdf' target='_blank'>📄 Click here to View " . basename($pdf) . "</a></p>";
+
             }
         }
         ?>
@@ -162,10 +163,5 @@ if (is_dir($dir)) {
         }
     };
 </script>
-
-
-
-
-
 </body>
 </html>

@@ -78,7 +78,7 @@
     </div>
 
     <div class="links-section">
-      <h3>Downloadable Files:</h3>
+    <h3 style="color: black;">Downloadable Files:</h3>
       <a href="gpsearch.php">1) Download Gurmat Parkash</a>
       <a href="ggsearch.php">2) Download Gurmat Gyan</a>
       <a href="gazettesearch.php">3) Download Gurdwara Gazette</a>
