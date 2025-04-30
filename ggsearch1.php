@@ -80,11 +80,14 @@ if (is_dir($dir)) {
       
 
         <?php
-        if ($pdfs) {
-            foreach ($pdfs as $pdf) {
-                echo "<p><a href='$pdf' download>📥 Click here to Download " . basename($pdf) . "</a></p>";
-            }
-        }
+       foreach ($pdfs as $pdf) {
+        $basename = basename($pdf);
+        echo "<div style='margin-bottom: 10px;'>
+                <a href='$pdf' download>📥 $basename</a>
+                <button onclick=\"deleteFile('$pdf', this)\" style='margin-left: 10px; color: red;'>🗑️ Delete</button>
+              </div>";
+    }
+    
         ?>
 
     </div>
@@ -148,9 +151,35 @@ if (is_dir($dir)) {
             }
         }
     };
+
+    
 </script>
 
 
+<script>
+    function deleteFile(filePath, button) {
+        if (confirm("Are you sure you want to delete this file?")) {
+            const formData = new FormData();
+            formData.append("file", filePath);
+
+            fetch("gpdelete.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result.trim() === "success") {
+                    button.parentElement.remove(); // Remove the file row
+                } else {
+                    alert("❌ Failed to delete file: " + result);
+                }
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            });
+        }
+    }
+</script>
 
 
 
