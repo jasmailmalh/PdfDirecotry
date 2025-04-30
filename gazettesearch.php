@@ -1,7 +1,7 @@
 <?php
 $year = $_GET['year'] ?? '';
 $month = $_GET['month'] ?? '';
-$dir = "gguploads/$year/$month/";
+$dir = "gazetteuploads/$year/$month/";
 
 $pdfs = [];
 if (is_dir($dir)) {
@@ -21,7 +21,7 @@ if (is_dir($dir)) {
     <script>
         function fetchMonths(year) {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "gpget_months.php?year=" + year, true);
+            xhr.open("GET", "gazetteget_months.php?year=" + year, true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     document.getElementById("monthSelect").innerHTML = "<option value=''>Select Month</option>" + xhr.responseText;
@@ -53,12 +53,12 @@ if (is_dir($dir)) {
 </head>
 <body>
 <div class="container">
-    <h2>🔍 Search Gurmat Gyan PDFs</h2>
+    <h2>🔍 Search  Gurdwara Gazette PDFs</h2>
     <form method="get">
         <select name="year" id="yearSelect" required>
             <option value="">Select Year</option>
             <?php
-            $years = array_filter(glob('gguploads/*'), 'is_dir');
+            $years = array_filter(glob('gpuploads/*'), 'is_dir');
             foreach ($years as $y) {
                 $yName = basename($y);
                 $selected = ($yName === $year) ? "selected" : "";
@@ -76,18 +76,15 @@ if (is_dir($dir)) {
     </form>
 
     <div class="pdf-list">
-        <h3>📂 Gurmat Gyan <?php echo "$month $year"; ?></h3>
+        <h3>📂  Gurdwara Gazette <?php echo "$month $year"; ?></h3>
       
 
         <?php
-       foreach ($pdfs as $pdf) {
-        $basename = basename($pdf);
-        echo "<div style='margin-bottom: 10px;'>
-                <a href='$pdf' download>📥 $basename</a>
-                <button onclick=\"deleteFile('$pdf', this)\" style='margin-left: 10px; color: red;'>🗑️ Delete</button>
-              </div>";
-    }
-    
+        if ($pdfs) {
+            foreach ($pdfs as $pdf) {
+                echo "<p><a href='$pdf' download>📥 Click here to Download " . basename($pdf) . "</a></p>";
+            }
+        }
         ?>
 
     </div>
@@ -97,14 +94,14 @@ if (is_dir($dir)) {
 <div id="noPdfModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>⚠️ No Gurmat Gyan uploaded for the selected year and month.</p>
+    <p>⚠️ No  Gurdwara Gazette uploaded for the selected year and month.</p>
   </div>
 </div>
 
 <script>
     function fetchMonths(year, selectedMonth = "") {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "ggget_months.php?year=" + year, true);
+        xhr.open("GET", "gpget_months.php?year=" + year, true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 const monthSelect = document.getElementById("monthSelect");
@@ -142,44 +139,18 @@ if (is_dir($dir)) {
         <?php endif; ?>
 
         span.onclick = function () {
-            window.location.href = "ggsearch.php";
+            window.location.href = "gazettesearch.php";
         }
 
         window.onclick = function (event) {
             if (event.target === modal) {
-                window.location.href = "ggsearch.php";
+                window.location.href = "gazettesearch.php";
             }
         }
     };
-
-    
 </script>
 
 
-<script>
-    function deleteFile(filePath, button) {
-        if (confirm("Are you sure you want to delete this file?")) {
-            const formData = new FormData();
-            formData.append("file", filePath);
-
-            fetch("gpdelete.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(result => {
-                if (result.trim() === "success") {
-                    button.parentElement.remove(); // Remove the file row
-                } else {
-                    alert("❌ Failed to delete file: " + result);
-                }
-            })
-            .catch(error => {
-                alert("Error: " + error);
-            });
-        }
-    }
-</script>
 
 
 

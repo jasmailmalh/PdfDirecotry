@@ -101,7 +101,7 @@ if (is_dir($dir)) {
 <script>
     function fetchMonths(year, selectedMonth = "") {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "gpget_months.php?year=" + year, true);
+        xhr.open("GET", "ggget_months.php?year=" + year, true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 const monthSelect = document.getElementById("monthSelect");

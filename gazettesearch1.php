@@ -1,7 +1,7 @@
 <?php
 $year = $_GET['year'] ?? '';
 $month = $_GET['month'] ?? '';
-$dir = "gguploads/$year/$month/";
+$dir = "gazetteuploads/$year/$month/";
 
 $pdfs = [];
 if (is_dir($dir)) {
@@ -53,7 +53,7 @@ if (is_dir($dir)) {
 </head>
 <body>
 <div class="container">
-    <h2>🔍 Search Gurmat Gyan PDFs</h2>
+    <h2>🔍 Search Gurdwara Gazette PDFs</h2>
     <form method="get">
         <select name="year" id="yearSelect" required>
             <option value="">Select Year</option>
@@ -76,7 +76,7 @@ if (is_dir($dir)) {
     </form>
 
     <div class="pdf-list">
-        <h3>📂 Gurmat Gyan <?php echo "$month $year"; ?></h3>
+        <h3>📂 Gurdwara Gazette <?php echo "$month $year"; ?></h3>
       
 
         <?php
@@ -97,14 +97,14 @@ if (is_dir($dir)) {
 <div id="noPdfModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>⚠️ No Gurmat Gyan uploaded for the selected year and month.</p>
+    <p>⚠️ No Gurdwara Gazette uploaded for the selected year and month.</p>
   </div>
 </div>
 
 <script>
     function fetchMonths(year, selectedMonth = "") {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "ggget_months.php?year=" + year, true);
+        xhr.open("GET", "gazetteget_months.php?year=" + year, true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 const monthSelect = document.getElementById("monthSelect");
@@ -142,12 +142,12 @@ if (is_dir($dir)) {
         <?php endif; ?>
 
         span.onclick = function () {
-            window.location.href = "ggsearch.php";
+            window.location.href = "gazettesearch1.php";
         }
 
         window.onclick = function (event) {
             if (event.target === modal) {
-                window.location.href = "ggsearch.php";
+                window.location.href = "gazettesearch1.php";
             }
         }
     };
