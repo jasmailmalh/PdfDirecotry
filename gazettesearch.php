@@ -56,7 +56,7 @@ if (is_dir($dir)) {
 <div class="container">
     <!-- Home Button -->
     <div style="text-align: right; margin-bottom: 20px;">
-        <a href="index.php" style="
+        <a href="index.php" style=" 
             text-decoration: none;
             background-color: #007BFF;
             color: white;
@@ -65,7 +65,7 @@ if (is_dir($dir)) {
             font-weight: bold;
             transition: background-color 0.3s ease;
         " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
-            🏠 Home
+       <span >⬅️ Back</span>
         </a>
     </div>
 

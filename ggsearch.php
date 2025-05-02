@@ -63,7 +63,7 @@ if (is_dir($dir)) {
             font-weight: bold;
             transition: background-color 0.3s ease;
         " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007BFF'">
-            🏠 Home
+         <span >⬅️ Back</span>
         </a>
     </div>
     <h2>🔍 Search Gurmat Gyan PDFs</h2>
